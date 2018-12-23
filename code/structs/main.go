@@ -73,8 +73,10 @@ func changeUsername() {
 
 	fmt.Printf("%+v\n", alex)
 
-	alexPointer := &alex
-	alexPointer.updateName("Pero")
+	// alexPointer := &alex
+	// alexPointer.updateName("Pero")
+	// call directly on type or can be called over pointer
+	alex.updateName("Pero")
 
 	fmt.Printf("%+v\n", alex)
 }
