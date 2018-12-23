@@ -2,13 +2,44 @@ package main
 
 import "fmt"
 
+type contactInfo struct {
+	email   string
+	zipCode int
+}
+
 type person struct {
 	firstName string
 	lastName  string
 }
 
+type personWithContact struct {
+	firstName string
+	lastName  string
+	contact   contactInfo
+}
+
+// maps contactInfo prop to contactInfo type
+// type personWithContact struct {
+// 	firstName string
+// 	lastName string
+// 	contactInfo
+// }
+
 func main() {
 
+	justPerson()
+
+	withContact()
+
+	changeUsername()
+
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+func justPerson() {
 	leo := person{"Leo", "Vujanic"}
 	alex := person{firstName: "Alex", lastName: "Anderson"}
 	var steve person
@@ -22,4 +53,28 @@ func main() {
 	fmt.Printf("%+v\n", steve)
 
 	fmt.Printf("%+v\n", john)
+}
+
+func withContact() {
+	alex := personWithContact{
+		firstName: "Alex",
+		lastName:  "Anderson",
+		contact: contactInfo{
+			email:   "alex@anderson.mail.loc",
+			zipCode: 12345,
+		},
+	}
+
+	fmt.Printf("%+v\n", alex)
+}
+
+func changeUsername() {
+	alex := person{firstName: "Alex", lastName: "Anderson"}
+
+	fmt.Printf("%+v\n", alex)
+
+	alexPointer := &alex
+	alexPointer.updateName("Pero")
+
+	fmt.Printf("%+v\n", alex)
 }
