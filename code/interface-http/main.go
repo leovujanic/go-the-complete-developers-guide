@@ -2,13 +2,15 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 )
 
 func main() {
 
-	url := "http://google.com"
+	url := "http://google.com/robots.txt"
 
 	resp, err := http.Get(url)
 
@@ -17,6 +19,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println(resp.Status)
+	content, err := ioutil.ReadAll(resp.Body)
+
+	_ = resp.Body.Close()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%s", content)
 
 }
