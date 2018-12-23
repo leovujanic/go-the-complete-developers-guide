@@ -24,7 +24,7 @@ func (sb spanishBot) getGreeting() string {
 	return "Hola!"
 }
 
-func printGreeting(eb englishBot) {
+func OldrintGreeting(eb englishBot) {
 	fmt.Println(eb.getGreeting())
 }
 
