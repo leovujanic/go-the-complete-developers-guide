@@ -2,15 +2,19 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
+	"io"
 	"net/http"
 	"os"
 )
 
+type logWriter struct{}
+
 func main() {
 
-	url := "http://google.com/robots.txt"
+	robots := "http://google.com/robots.txt"
+	url := "http://google.com"
+
+	fmt.Println("Robots url:", robots)
 
 	resp, err := http.Get(url)
 
@@ -19,14 +23,24 @@ func main() {
 		os.Exit(1)
 	}
 
-	content, err := ioutil.ReadAll(resp.Body)
+	lw := logWriter{}
 
-	_ = resp.Body.Close()
+	_, _ = io.Copy(lw, resp.Body)
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	// content, err := ioutil.ReadAll(resp.Body)
+	//
+	// _ = resp.Body.Close()
+	//
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	//
+	// fmt.Printf("%s", content)
 
-	fmt.Printf("%s", content)
+}
 
+func (logWriter) Write(bs []byte) (int, error) {
+	fmt.Println(string(bs))
+	fmt.Println("Just wrote this many bytes:", len(bs))
+	return len(bs), nil
 }
