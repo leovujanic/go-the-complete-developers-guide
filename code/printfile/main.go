@@ -7,6 +7,10 @@ import (
 )
 
 func main() {
+	if len(os.Args) <= 1 {
+		fmt.Println("Please provide file path")
+		os.Exit(1)
+	}
 	f, err := os.Open(os.Args[1])
 	if err != nil {
 		fmt.Println("Error:", err)
