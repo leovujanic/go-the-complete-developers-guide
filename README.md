@@ -36,3 +36,13 @@ func (t T) String() string {
 }
 
 ```
+
+## Errors
+
+```go
+
+type error interface {
+    Error() string
+}
+
+```
