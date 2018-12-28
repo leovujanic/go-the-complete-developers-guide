@@ -15,7 +15,7 @@ You can only declare a method with a receiver whose type is defined in the same 
 
 ## Type Switches
 
-````go
+```go
 switch v := i.(type) {
 case T:
     // here v has type T
@@ -24,7 +24,7 @@ case S:
 default:
     // no match; here v has the same type as i
 }
-````
+```
 
 
 ## `toString()` or `Stringer` in go
